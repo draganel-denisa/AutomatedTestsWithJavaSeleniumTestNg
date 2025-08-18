@@ -1,5 +1,7 @@
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -24,30 +26,50 @@ public class TesteDeBaza {
         driver.manage().window().maximize();
     }
 
+//    @Test
+//    public void testTitluGoogle() {
+//        System.out.println("Rulam testul pentru titlul Google...");
+//        driver.get("https://www.google.com");
+//        String titluActual = driver.getTitle();
+//        String titluAsteptat = "Google";
+//
+//        // ASERTIUNE: Daca aceasta conditie este falsa, testul pica si se opreste aici.
+//        Assert.assertEquals(titluActual, titluAsteptat, "Titlul paginii Google nu este corect!");
+//    }
+//
+//    @Test
+//    public void testNavigareInapoiInainte() {
+//        System.out.println("Rulam testul de navigare...");
+//        driver.navigate().to("https://www.emag.ro/");
+//        driver.navigate().to("https://www.wikipedia.org/");
+//
+//        // Ne intoarcem la pagina anterioara (eMAG)
+//        driver.navigate().back();
+//        Assert.assertTrue(driver.getCurrentUrl().contains("emag.ro"), "Intoarcerea la eMAG a esuat!");
+//
+//        // Mergem la pagina urmatoare (Wikipedia)
+//        driver.navigate().forward();
+//        Assert.assertTrue(driver.getCurrentUrl().contains("wikipedia.org"), "Navigarea inainte la Wikipedia a esuat!");
+//    }
+
     @Test
-    public void testTitluGoogle() {
-        System.out.println("Rulam testul pentru titlul Google...");
-        driver.get("https://www.google.com");
-        String titluActual = driver.getTitle();
-        String titluAsteptat = "Google";
+    public void testInteractionsAndValidations() {
+        driver.get("https://the-internet.herokuapp.com/checkboxes");
 
-        // ASERTIUNE: Daca aceasta conditie este falsa, testul pica si se opreste aici.
-        Assert.assertEquals(titluActual, titluAsteptat, "Titlul paginii Google nu este corect!");
-    }
+        // Gasim cele doua checkbox-uri
+        WebElement checkbox1 = driver.findElement(By.xpath("//form[@id='checkboxes']/input[1]"));
+        WebElement checkbox2 = driver.findElement(By.xpath("//form[@id='checkboxes']/input[2]"));
 
-    @Test
-    public void testNavigareInapoiInainte() {
-        System.out.println("Rulam testul de navigare...");
-        driver.navigate().to("https://www.emag.ro/");
-        driver.navigate().to("https://www.wikipedia.org/");
+        // Validam starea initiala
+        Assert.assertFalse(checkbox1.isSelected(), "Checkbox 1 nu ar trebui sa fie selectat initial!");
+        Assert.assertTrue(checkbox2.isSelected(), "Checkbox 2 ar trebui sa fie selectat initial!");
 
-        // Ne intoarcem la pagina anterioara (eMAG)
-        driver.navigate().back();
-        Assert.assertTrue(driver.getCurrentUrl().contains("emag.ro"), "Intoarcerea la eMAG a esuat!");
+        // Interacționăm
+        System.out.println("Bifam primul checkbox...");
+        checkbox1.click();
 
-        // Mergem la pagina urmatoare (Wikipedia)
-        driver.navigate().forward();
-        Assert.assertTrue(driver.getCurrentUrl().contains("wikipedia.org"), "Navigarea inainte la Wikipedia a esuat!");
+        // Validam noua stare
+        Assert.assertTrue(checkbox1.isSelected(), "Checkbox 1 ar trebui sa fie acum selectat!");
     }
 
     @AfterMethod
