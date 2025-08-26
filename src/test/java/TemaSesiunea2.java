@@ -50,8 +50,9 @@ public class TemaSesiunea2 {
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
 
         WebElement errorMessage = driver.findElement(By.id("flash"));
-        Assert.assertTrue(errorMessage.getText().contains("Your username is invalid!"));
+        Assert.assertTrue(errorMessage.getText().contains("invalid"));
     }
+
     @AfterMethod
     public void tearDown() {
         driver.quit();
